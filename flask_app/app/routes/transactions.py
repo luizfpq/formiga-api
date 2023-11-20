@@ -2,6 +2,7 @@
 
 from flask import Blueprint, request,jsonify
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import text  # Importe a função text do SQLAlchemy
 from werkzeug.security import check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from flask_jwt_extended import unset_jwt_cookies
@@ -187,3 +188,53 @@ def delete_transaction(id):
     db.session.delete(transaction)
     db.session.commit()
     return jsonify({'message': 'Transaction deleted successfully'})
+
+@transactions.route('/transactions/total', methods=['GET'])
+def get_transaction_type():
+    # Consulta à view no banco de dados
+    query = text("SELECT * FROM transaction_type_view")  # Sua consulta SQL usando text
+
+    # Execute a consulta
+    result = db.session.execute(query)
+
+     # Calcule o total_value a partir dos valores de crédito e débito
+    final_value = 0
+    transaction_types = []
+    
+    for row in result:
+        if row.transaction_type == "Crédito":
+          final_value += row.total_value
+          credit_value = row.total_value
+        elif row.transaction_type == "Débito":
+          final_value -= row.total_value
+          debit_value  = row.total_value
+
+      
+    transaction_types.append({
+        'credit_value': round(credit_value, 2),
+        'debit_value' : round(debit_value, 2),
+        'final_value' : round(final_value, 2)
+    })
+
+    # Retorne os dados como JSON
+    return jsonify(transaction_types)
+
+
+@transactions.route('/transactions/expense_category_totals', methods=['GET'])
+def get_transaction_category_totals():
+    # Consulta à view no banco de dados
+    query = text("SELECT * FROM expense_category_totals")  # Sua consulta SQL usando text
+
+    # Execute a consulta
+    result = db.session.execute(query)
+
+    # Transforme o resultado em um dicionário para jsonify
+    totals = [
+        {'category_id': row.category_id, 'category_name': row.category_name, 'total_value': round(row.total_value, 2)}
+        for row in result
+    ]
+    
+    
+
+    # Retorne os dados como JSON
+    return jsonify(totals)
