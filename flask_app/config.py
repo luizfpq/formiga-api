@@ -15,7 +15,7 @@ load_dotenv()  # Carrega variáveis do arquivo .env no ambiente Flask
 class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
     SECRET_KEY = os.getenv('SECRET_KEY')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 
 app.config.from_object(Config)

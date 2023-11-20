@@ -15,41 +15,35 @@ users = Blueprint('users', __name__)
 @users.route('/users/signup', methods=['POST'])
 def signup():
     """
-    Cadastro de usuário.
+    Cria um novo usuário.
     ---
     tags:
-      - Usuários
+      - Users
     parameters:
-      - name: username
-        in: formData
-        type: string
+      - name: body
+        in: body
         required: true
-        description: Nome de usuário
-      - name: name
-        in: formData
-        type: string
-        required: true
-        description: Nome completo do usuário
-      - name: email
-        in: formData
-        type: string
-        required: true
-        description: Endereço de e-mail do usuário
-      - name: password
-        in: formData
-        type: string
-        required: true
-        description: Senha do usuário
-      - name: role
-        in: formData
-        type: string
-        required: true
-        description: Papel do usuário
+        description: Dados do novo usuário
+        schema:
+          type: object
+          properties:
+            username:
+              type: string
+            name:
+              type: string
+            password:
+              type: string
+            email:
+              type: string
+            role:
+              type: string
     responses:
       201:
-        description: Usuário cadastrado com sucesso
+        description: Usuário criado com sucesso
       400:
-        description: Erro no cadastro do usuário
+        description: Parâmetros inválidos ou faltando
+      409:
+        description: E-mail em uso
     """
     try:
         data = request.get_json()
@@ -104,21 +98,26 @@ def login():
     Autenticação de usuário.
     ---
     tags:
-      - Usuários
+      - Users
     parameters:
-      - name: email
-        in: formData
-        type: string
+      - in: body
+        name: body
+        description: Credenciais de login do usuário
         required: true
-        description: Endereço de e-mail do usuário
-      - name: password
-        in: formData
-        type: string
-        required: true
-        description: Senha do usuário
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+              description: Endereço de e-mail do usuário
+            password:
+              type: string
+              description: Senha do usuário
     responses:
       200:
         description: Autenticação bem-sucedida
+      400:
+        description: Credenciais incompletas
       401:
         description: Credenciais inválidas
     """
@@ -160,7 +159,28 @@ def check_password(saved_password, salt, provided_password):
 # rota de logout
 @users.route('/users/logout', methods=['POST'])
 @jwt_required()
+#@swag_from('/docs/user_logout.yml')  # Especifique o caminho correto para seu arquivo YAML
 def logout():
+    """
+    Logout de usuário.
+    ---
+    tags:
+      - Users
+    securityDefinitions:
+      JWT:
+        type: apiKey
+        name: Authorization
+        in: header
+    security:
+      - JWT: []
+    responses:
+      200:
+        description: Logout bem-sucedido
+      401:
+        description: Credenciais inválidas ou ausentes
+      default:
+        description: Erro interno no servidor
+    """
     # Obtenha a identidade do token JWT
     current_user_id = get_jwt_identity()
 

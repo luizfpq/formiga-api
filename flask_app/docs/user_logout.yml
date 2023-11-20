@@ -1,0 +1,25 @@
+swagger: '2.0'
+info:
+  title: Sua API
+  description: Descrição da sua API
+  version: '1.0'
+paths:
+  /users/logout:
+    post:
+      summary: Rota para logout de usuário
+      tags:
+        - Users
+      securityDefinitions:
+        JWT:
+          type: apiKey
+          name: Authorization
+          in: header
+      security:
+        - JWT: []
+      responses:
+        200:
+          description: Logout bem-sucedido
+        401:
+          description: Credenciais inválidas ou ausentes
+        default:
+          description: Erro interno no servidor
