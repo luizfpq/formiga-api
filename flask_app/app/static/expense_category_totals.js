@@ -34,7 +34,7 @@
   // Função para fazer a requisição HTTP e chamar a função de preencher a tabela
   function fetchDataAndPopulateTable() {
     // URL da API
-    const apiUrl = 'http://localhost:5000/transactions/expense_category_totals';
+    const apiUrl = '/transactions/expense_category_totals';
   
     // Faz a requisição HTTP
     fetch(apiUrl)
