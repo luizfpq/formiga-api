@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ADA API - Página Inicial</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">ADA API</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/enunciado">Sobre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/apidocs">Documentação</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+      
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+        
+                <h2>1. Apresentação da dificuldade</h2>
+                <p>Joana sempre foi apaixonada por livros. Desde pequena, seu lugar preferido era o SEBO da esquina, onde ela podia encontrar preciosidades literárias e histórias esquecidas pelo tempo. Com o avanço da tecnologia, muitos desses SEBOs fecharam as portas, e Joana viu sua paixão se tornar cada vez mais rara nas cidades. Porém, ao invés de lamentar, ela teve uma ideia: por que não trazer o conceito de SEBO para o mundo online?</p>
+        
+                <p>Assim nasceu o Sebo Contos de Ada, uma plataforma digital onde qualquer pessoa poderia vender ou comprar livros usados, garantindo que as histórias continuassem sendo compartilhadas e relembradas.</p>
+        
+                <p>Joana acredita que a essência de um SEBO não está apenas nos livros, mas nas pessoas que os leem e os vendem. Por isso, ela quer que o sistema permita a interação entre os usuários, e que cada livro tenha sua própria “história”, contada por quem o está vendendo.</p>
+        
+            </div>
+        
+            <div class="col-md-8 offset-md-2">
+        
+                <div class="objective-section">
+                    <h2>2. Objetivo</h2>
+                    <p>Desenvolver uma API robusta e eficiente para o Sebo Contos de Ada, que permita o cadastro de usuários (compradores e vendedores), livros e transações. A plataforma precisa ser intuitiva e fácil de usar, garantindo que os amantes de livros possam navegar, comprar e vender sem complicações.</p>
+                    <p>A apresentação de seu texto (formatação, aparência, qualidade, etc), será avaliada, em paralelo ao conteúdo. Utilize figuras se julgar necessário.</p>
+                    <p>Seu texto deve ser entregue em formato PDF, seu código enviado via Git, ou através de um link da aplicação hospedada, as variações da entrega de código serão aceitas desde que o docente possa realizar testes via Postman.</p>
+                    <p>EM HIPÓTESE ALGUMA, COPIE TEXTO DE QUALQUER FONTE. Mesmo mudando palavras de um texto copiado, é fácil reconhecê-lo.</p>
+                </div>
+        
+            </div>
+        
+            <div class="col-md-8 offset-md-2">
+        
+                <div class="requirements-section">
+                    <h2>3. Requisitos e Modelos de Negócio</h2>
+                    <p>Primeiramente, defina os principais atores e recursos do sistema. No contexto de um SEBO online, são cruciais:</p>
+                    <ul>
+                        <li>Usuários: usuários comuns, que podem ser tanto vendedores quanto compradores, além dos funcionários do SEBO e da administração do sistema.</li>
+                        <li>Produtos: itens colocados à venda pelos usuários.</li>
+                        <li>Transações: vendas realizadas entre vendedores e compradores.</li>
+                    </ul>
+                    <p>Após definir nossos objetos/atores/recursos, é necessário respeitar (no mínimo) as seguintes regras de negócio:</p>
+                    <ul>
+                        <li>Permitir o cadastro, edição e remoção de usuários.</li>
+                        <li>Permitir o cadastro, edição e remoção de livros.</li>
+                        <li>Registrar transações entre vendedores e compradores.</li>
+                        <li>Cada livro deve ter (no mínimo) informações como título, autor, categoria, preço e uma breve descrição ou história contada pelo vendedor.</li>
+                        <li>Os usuários devem poder buscar livros por diferentes critérios, ISBN, como título, autor ou categoria.</li>
+                        <li>A plataforma deve ter um sistema de autenticação e autorização para garantir a segurança dos dados dos usuários.</li>
+                        <li>Realizar as remoções de objetos/atores já envolvidos em transações, apenas por soft delete.</li>
+                    </ul>
+                </div>
+        
+            </div>
+        
+            <div class="col-md-8 offset-md-2">
+        
+                <div class="endpoints-section">
+                    <h2>3.1 Endpoints e Atributos Sugeridos</h2>
+                    <p>Alguns endpoints básicos são necessários para os testes realizados na correção pelo docente, além dos endpoints apresentados aqui, pode-se implementar outros, desde que respeitadas as padronizações ofertadas para APIs Restful pela OpenAPI. A liberdade na modelagem é incentivada, portanto, não se apegue aos itens apresentados, desde que as funcionalidades testadas nas entregas sejam possíveis, atente-se ao máximo em entregar o que foi pedido nas entregas.</p>
+        
+                    <h3>3.1.1 Usuários</h3>
+                    <p><strong>Campos sugeridos:</strong> ID, Nome, Email, Senha (criptografada), Status (ativo/inativo), Tipo (comprador/vendedor/administrador)</p>
+                    <p><strong>Endpoints:</strong></p>
+                    <ul>
+                        <li>POST /users/signup - Registro do usuário.</li>
+                        <li>POST /users/login - Autenticação do usuário.</li>
+                        <li>PUT /users/{id} - Editar informações do usuário.</li>
+                        <li>DELETE /users/{id} - Desativar um usuário (soft delete).</li>
+                    </ul>
+        
+                    <h3>3.1.2 Administradores</h3>
+                    <p><strong>Campos adicionais:</strong> Data de início, Área de especialização</p>
+                    <p><strong>Endpoints:</strong></p>
+                    <ul>
+                        <li>POST /admin/login - Login do administrador.</li>
+                        <li>GET /admin/reports - Visualizar relatórios e estatísticas.</li>
+                        <li>GET /admin/users - Visualizar usuários.</li>
+                    </ul>
+                </div>
+        
+            </div>
+        
+            <div class="col-md-8 offset-md-2">
+        
+                <div class="endpoints-section">
+                    <h3>3.1.3 Itens (Livros, Revistas, Periódicos, Jornais)</h3>
+                    <p><strong>Campos sugeridos:</strong> ID, Título, Autor, Categoria (livro, revista, etc.), Preço, Breve descrição ou história, Status (ativo/inativo ou em estoque/fora de estoque), Data de edição, Periodicidade, ID do vendedor</p>
+                    <p><strong>Endpoints:</strong></p>
+                    <ul>
+                        <li>POST /items - Adicionar um novo item.</li>
+                        <li>GET /items - Listar todos os itens.</li>
+                        <li>GET /items/{id} - Obter detalhes de um item específico.</li>
+                        <li>PUT /items/{id} - Editar um item.</li>
+                        <li>DELETE /items/{id} - Desativar um item (soft delete).</li>
+                        <li>GET /items/search - Buscar itens por critérios.</li>
+                    </ul>
+        
+                    <h3>3.1.4 Transações</h3>
+                    <p><strong>Campos sugeridos:</strong> ID da transação, ID do comprador, ID do vendedor, ID do item, Data da transação, Valor da transação</p>
+                    <p><strong>Endpoints:</strong></p>
+                    <ul>
+                        <li>POST /transactions - Registrar uma nova transação.</li>
+                        <li>GET /transactions/{userId} - Visualizar transações de um usuário específico.</li>
+                    </ul>
+        
+                    <h3>3.1.5 Categorias</h3>
+                    <p><strong>Campos sugeridos:</strong> ID da categoria, Nome da categoria, Descrição</p>
+                    <p><strong>Endpoints:</strong></p>
+                    <ul>
+                        <li>GET /categories - Listar todas as categorias.</li>
+                        <li>POST /categories - Adicionar uma nova categoria.</li>
+                        <li>PUT /categories/{id} - Editar uma categoria existente.</li>
+                        <li>DELETE /categories/{id} - Excluir uma categoria.</li>
+                    </ul>
+        
+                    <h3>3.1.6 Regras de Negócio Adicionais</h3>
+                    <p><strong>Ao tentar desativar um usuário ou item, que esteve envolvido em uma transação, o sistema deve implementar uma desativação suave (soft delete).</strong></p>
+                </div>
+        
+            </div>
+        
+            <div class="col-md-8 offset-md-2">
+        
+                <div class="documentation-section">
+                    <h2>4. Documentação</h2>
+                    <p>Uma documentação clara é fundamental. Existem ferramentas e padrões que ajudam nesse processo:</p>
+                    <ul>
+                        <li><strong>Swagger/OpenAPI:</strong> Uma das ferramentas mais populares para documentação de APIs. Com ela, você pode definir todos os endpoints, métodos permitidos, parâmetros, formatos de resposta, entre outros. Além disso, fornece uma interface web onde é possível testar as requisições.</li>
+                        <li><strong>Descrição dos Endpoints:</strong> Para cada endpoint, descreva:</li>
+                        <ul>
+                            <li>Método HTTP (GET, POST, PUT, DELETE).</li>
+                            <li>Parâmetros (query, path e body).</li>
+                            <li>Respostas possíveis (incluindo códigos de status e corpo da resposta).</li>
+                            <li>Qualquer autenticação ou permissão necessária.</li>
+                        </ul>
+                    </ul>
+                </div>
+        
+            </div>
+        
+            <div class="col-md-8 offset-md-2">
+        
+                <div class="suggestions-section">
+                    <h2>5. Sugestões Adicionais</h2>
+                    <ul>
+                        <li><strong>Autenticação:</strong> Dependendo da complexidade desejada, pode-se implementar autenticação via token (como JWT) para garantir que apenas usuários registrados possam adicionar ou comprar livros.</li>
+                        <li><strong>Filtros e Paginação:</strong> No endpoint que lista os livros, pode ser útil implementar filtros (por exemplo, por categoria, autor ou preço) e paginação, para não sobrecarregar o cliente com muitos dados de uma vez.</li>
+                        <li><strong>Imagens dos Livros:</strong> Permitir que os usuários façam upload de imagens dos livros pode enriquecer a experiência. Se decidir adicionar essa funcionalidade, lembre-se de lidar com o armazenamento e servir essas imagens de maneira eficiente.</li>
+                        <li><strong>Consumo de API externa:</strong> Ao cadastrar novos livros, é possível consumir gratuitamente a API do Google Books, ou outras APIs de sua escolha, esta opção consta como um ponto extra.</li>
+                    </ul>
+                </div>
+        
+            </div>
+        
+            <div class="col-md-8 offset-md-2">
+        
+                <div class="delivery-section">
+                    <h2>6. 1ª Entrega: Estrutura Básica e Gerenciamento de Usuários</h2>
+                    <h3>6.1 Objetivo</h3>
+                    <p>Estabelecer a base do sistema, focando principalmente na gestão de usuários.</p>
+        
+                    <h3>6.2 Requisitos</h3>
+                    <h4>6.2.1 Back-end Base</h4>
+                    <ul>
+                        <li>Configuração inicial do servidor. (1 ponto)</li>
+                        <li>Definição e Conexão com banco de dados. (1 ponto)</li>
+                        <li>Implementação da estrutura básica de roteamento. (1 ponto)</li>
+                    </ul>
+        
+                    <h4>6.2.2 Usuários</h4>
+                    <ul>
+                        <li>Cadastro de usuários (compradores e vendedores). (1 ponto)</li>
+                        <li>Autenticação (login/logout). (1 ponto)</li>
+                        <li>Edição de perfil. (1 ponto)</li>
+                        <li>Soft delete para desativar usuários. (1 ponto)</li>
+                        <li>Sistema de criptografia para senhas. (1 ponto)</li>
+                    </ul>
+        
+                    <h4>6.2.3 Administradores</h4>
+                    <ul>
+                        <li>Login de administradores. (1 ponto)</li>
+                        <li>Visualização básica de relatórios e estatísticas (focar no retorno de um endpoint ao menos, sugestão, pelo endpoint de listagem de usuários, pode ser aprimorado nas próximas entregas). (1 ponto)</li>
+                    </ul>
+                </div>
+        
+            </div>
+        
+            <div class="col-md-8 offset-md-2">
+        
+                <div class="delivery-section">
+                    <h2>7. 2ª Entrega: Gerenciamento de Itens e Categorias</h2>
+                    <h3>7.1 Objetivo</h3>
+                    <p>Permitir que os usuários (especialmente vendedores) comecem a adicionar, editar e gerenciar itens na plataforma.</p>
+        
+                    <h3>7.2 Requisitos</h3>
+                    <h4>7.2.1 Itens (Livros, Revistas, Periódicos, Jornais)</h4>
+                    <ul>
+                        <li>Adição de novos itens. (1 ponto)</li>
+                        <li>Listagem de itens. (1 ponto)</li>
+                        <li>Edição de itens. (1 ponto)</li>
+                        <li>Busca básica de itens (pode ser otimizada na próxima entrega). (1 ponto)</li>
+                    </ul>
+        
+                    <h4>7.2.2 Categorias</h4>
+                    <ul>
+                        <li>Criação de categorias. (1 ponto)</li>
+                        <li>Listagem de categorias. (1 ponto)</li>
+                        <li>Edição de categorias. (1 ponto)</li>
+                        <li>Soft delete para categorias. (1 ponto)</li>
+                        <li>Registro de novas transações. (1 ponto)</li>
+                        <li>Visualização de transações para um usuário específico. (1 ponto)</li>
+                    </ul>
+                </div>
+        
+            </div>
+        
+            <div class="col-md-8 offset-md-2">
+        
+                <div class="delivery-section">
+                    <h2>8. 3ª Entrega: Aprimoramentos Finais</h2>
+                    <h3>8.1 Objetivo</h3>
+                    <p>Implementar a funcionalidade de transações e otimizar a experiência do usuário com melhorias baseadas nos feedbacks das fases anteriores.</p>
+        
+                    <h3>8.2 Requisitos</h3>
+                    <h4>8.2.1 Itens</h4>
+                    <ul>
+                        <li>Listagem dos itens cadastrados, com filtros: título, ISBN, autor. (2 pontos)</li>
+                    </ul>
+        
+                    <h4>8.2.2 Documentação</h4>
+                    <ul>
+                        <li>Documentação da API. (8 pontos)</li>
+                    </ul>
+                </div>
+        
+            </div>
+        
+            <div class="col-md-8 offset-md-2">
+        
+                <div class="delivery-dates-section">
+                    <h2>Datas das Entregas</h2>
+                    <ul>
+                        <li><strong>1ª entrega:</strong> Sábado, 30 de setembro de 2023</li>
+                        <li><strong>2ª entrega:</strong> Quarta-feira, 15 de novembro de 2023</li>
+                        <li><strong>3ª entrega:</strong> Sábado, 18 de novembro de 2023</li>
+                    </ul>
+                    <p>Essas são as datas limites para a entrega das atividades. Certifique-se de entregar até esses prazos para garantir a avaliação adequada.</p>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-4 bg-light text-center py-3">
+        <p>© 2023.2 - PDWA5 - QUIRINO - ADA API</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
