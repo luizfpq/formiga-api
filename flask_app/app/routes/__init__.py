@@ -5,6 +5,6 @@ from app import app
 def index():
     return render_template('index.html')
     #return jsonify({'error': 'Rota não permitida - HTTP 403.'}), 403  # 403 significa Forbidden
-@app.route('/enunciado')
+@app.route('/dashboard')
 def enunciado():
-    return render_template('enunciado.html')
+    return render_template('dashboard.html')
