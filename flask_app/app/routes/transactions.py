@@ -234,7 +234,76 @@ def get_transaction_category_totals():
         for row in result
     ]
     
-    
+    # Retorne os dados como JSON
+    return jsonify(totals)
 
+@transactions.route('/transactions/financial_summary', methods=['GET'])
+def get_financial_summary():
+    # Consulta à view no banco de dados
+    query = text("SELECT * FROM financial_summary")  # Sua consulta SQL usando text
+
+    # Execute a consulta
+    result = db.session.execute(query)
+
+    # Transforme o resultado em um dicionário para jsonify
+    totals = [
+        {
+            'planned_income': round(row.planned_income, 2),
+            'realized_income': round(row.realized_income, 2),
+            'planned_expenses': round(row.planned_expenses, 2),
+            'realized_expenses': round(row.realized_expenses, 2),
+            'planned_balance': round(row.planned_balance, 2),
+            'realized_balance': round(row.realized_balance, 2),
+            'income_percentage': round(row.income_percentage, 2),
+            'expense_percentage': round(row.expense_percentage, 2)
+        }
+        for row in result
+    ]
+
+    
+    # Retorne os dados como JSON
+    return jsonify(totals)
+
+@transactions.route('/transactions/payment_sources_totals', methods=['GET'])
+def get_payment_sources_totals():
+    # Consulta à view no banco de dados
+    query = text("SELECT * FROM payment_sources_totals")  # Sua consulta SQL usando text
+
+    # Execute a consulta
+    result = db.session.execute(query)
+
+    # Transforme o resultado em um dicionário para jsonify
+    totals = [
+        {
+            'source_id': row.source_id,
+            'source_name': row.source_name,
+            'total_value': round(row.total_value, 2)
+        }
+        for row in result
+    ]
+
+    
+    # Retorne os dados como JSON
+    return jsonify(totals)
+
+@transactions.route('/transactions/payment_method_totals', methods=['GET'])
+def get_payment_method_totals():
+    # Consulta à view no banco de dados
+    query = text("SELECT * FROM payment_method_totals")  # Sua consulta SQL usando text
+
+    # Execute a consulta
+    result = db.session.execute(query)
+
+    # Transforme o resultado em um dicionário para jsonify
+    totals = [
+        {
+            'mothod_id': row.method_id,
+            'method_name': row.method_name,
+            'total_value': round(row.total_value, 2)
+        }
+        for row in result
+    ]
+
+    
     # Retorne os dados como JSON
     return jsonify(totals)

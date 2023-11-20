@@ -6,7 +6,7 @@
     // Cria o cabeçalho da tabela
     const thead = table.createTHead();
     const headerRow = thead.insertRow();
-    const headers = ['ID', 'Categoria', 'Valor'];
+    const headers = ['Categoria', 'Valor'];
   
     // Preenche o cabeçalho da tabela
     headers.forEach(headerText => {
@@ -19,15 +19,15 @@
     // Preenche os dados na tabela
     const tbody = table.createTBody();
     data.forEach(item => {
-      const row = tbody.insertRow();
-      const idCell = row.insertCell();
-      idCell.textContent = item.category_id;
+      if (item.total_value != 0) {
+        const row = tbody.insertRow();
   
-      const nameCell = row.insertCell();
-      nameCell.textContent = item.category_name;
-  
-      const valueCell = row.insertCell();
-      valueCell.textContent = item.total_value;
+        const nameCell = row.insertCell();
+        nameCell.textContent = item.category_name;
+    
+        const valueCell = row.insertCell();
+        valueCell.textContent = item.total_value;
+      }
     });
   }
   
@@ -50,5 +50,3 @@
   
   // Chama a função para buscar os dados e preencher a tabela quando a página carregar
   window.addEventListener('load', fetchDataAndPopulateTable);
-  
-  

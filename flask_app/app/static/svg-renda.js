@@ -43,16 +43,15 @@ function gerarSVG(percentual) {
   
     return svg;
   }
-  
+ 
   // Obtém o elemento onde deseja exibir a imagem SVG
   const svgContainer = document.getElementById('svg-container-renda');
   
   // Define o percentual que você deseja exibir (exemplo: 75%)
-  const percentual = 75;
+  const percentual = document.getElementById('svg_container_renda_input_hidden').value;
   
   // Gera a imagem SVG com o percentual desejado
   const svgElement = gerarSVG(percentual);
   
   // Adiciona a imagem SVG ao elemento container na página
   svgContainer.appendChild(svgElement);
-  

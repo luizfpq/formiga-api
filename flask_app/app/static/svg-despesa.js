@@ -43,16 +43,15 @@ function gerarSVG_despesa(percentual) {
   
     return svg;
   }
-  
+
   // Obtém o elemento onde deseja exibir a imagem SVG
   const svgContainerDespesa = document.getElementById('svg-container-despesa');
   
   // Define o percentual que você deseja exibir (exemplo: 75%)
-  const percentualDespesa = 80;
+  const percentualDespesa = document.getElementById('svg_container_despesa_input_hidden').value;
   
   // Gera a imagem SVG com o percentual desejado
   const svgElementDespesa = gerarSVG_despesa(percentualDespesa);
   
   // Adiciona a imagem SVG ao elemento container na página
   svgContainerDespesa.appendChild(svgElementDespesa);
-  
